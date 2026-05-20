@@ -10,7 +10,7 @@ import {
 	DisclosurePanel,
 	Transition,
 } from '@headlessui/react';
-import { Icon, Typography } from 'components/common';
+import { Typography } from 'components/common';
 import { ChevronRightIcon } from '@heroicons/react/20/solid';
 import { itemIsNotNullAndNotUndefined } from 'utils';
 import { useRouter } from 'next/router';
@@ -144,9 +144,7 @@ export const SidebarDesktop: React.FC<SidebarDesktopProps & CypressI> = ({
 						>
 							{/* Icon */}
 							{item.icon && !item.subOptions && (
-								<div className="w-4">
-									<Icon {...item.iconProps} src={item.icon} />
-								</div>
+								<div className="w-4">{item.icon}</div>
 							)}
 
 							{/* Render handler (Link, OnClick, Custom) */}
@@ -168,11 +166,7 @@ export const SidebarDesktop: React.FC<SidebarDesktopProps & CypressI> = ({
 									>
 										<div className="flex items-center gap-2">
 											{/* Icon */}
-											{item.icon && (
-												<div className="w-4">
-													<Icon {...item.iconProps} src={item.icon} />
-												</div>
-											)}
+											{item.icon && <div className="w-4">{item.icon}</div>}
 
 											{/* Label */}
 											<Typography
@@ -200,14 +194,7 @@ export const SidebarDesktop: React.FC<SidebarDesktopProps & CypressI> = ({
 											>
 												<DisclosurePanel className="flex flex-wrap gap-2 w-full justify-start items-center pl-6 mt-3">
 													{/* SubItem Icon */}
-													{subItem.icon && typeof subItem.icon == 'string' && (
-														<div className="w-4">
-															<Icon src={subItem.icon} />
-														</div>
-													)}
-													{subItem.icon && typeof subItem.icon != 'string' && (
-														<>{item.icon}</>
-													)}
+													{subItem.icon}
 
 													{/* Render handler */}
 													{handleRenderItem(subItem)}

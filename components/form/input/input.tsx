@@ -2,7 +2,6 @@ import * as React from 'react';
 import clsx from 'clsx';
 import { Typography } from '../../common/typography';
 import { InputProps } from 'interfaces';
-import { Icon } from 'components/common';
 import { CypressI } from 'interfaces/cypress';
 
 export const Input: React.FC<
@@ -70,7 +69,7 @@ export const Input: React.FC<
 				/>
 				{iconLeft && (
 					<div onClick={leftClick} className="absolute left-4 top-1/2 w-6 h-6">
-						<Icon src={iconLeft} className="text-dark-80 cursor-pointer" />
+						{iconLeft}
 					</div>
 				)}
 				{iconRight && (
@@ -78,7 +77,7 @@ export const Input: React.FC<
 						onClick={rightClick}
 						className="absolute right-4 top-1/2 w-6 h-6"
 					>
-						<Icon src={iconRight} className="cursor-pointer" />
+						{iconRight}
 					</div>
 				)}
 			</div>

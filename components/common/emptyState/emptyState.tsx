@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Typography } from '../typography';
 import Image from 'next/image';
-import Icons from 'const/icons';
 import { CypressI } from 'interfaces/cypress';
 
 export const EmptyState: React.FC<CypressI> = ({ dataCY }): JSX.Element => {
@@ -10,7 +9,12 @@ export const EmptyState: React.FC<CypressI> = ({ dataCY }): JSX.Element => {
 			data-cy={dataCY}
 			className="flex flex-col w-full mt-20 justify-center items-center md:m-5"
 		>
-			<Image src={Icons.nodata} width={100} height={120} alt="empty state" />
+			<Image
+				src="/icons/svg/no_data.svg"
+				width={100}
+				height={120}
+				alt="empty state"
+			/>
 			<Typography type="headline-3" className="font-bold mt-4">
 				No results found
 			</Typography>

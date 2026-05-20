@@ -10,7 +10,6 @@ import { Option } from 'interfaces';
 import Link from 'next/link';
 import { Avatar, Typography } from 'components/common';
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
-import Icons from 'const/icons';
 
 interface DropdownProfileProps {
 	links: Option[];
@@ -20,7 +19,7 @@ export const DropdownProfile: React.FC<DropdownProfileProps> = ({ links }) => {
 	return (
 		<Menu as="div" className="relative">
 			<MenuButton className="inline-flex space-x-2 items-center justify-center focus:outline-none">
-				<Avatar photoUrl={Icons.avatar} size="small" />
+				<Avatar photoUrl="/icons/svg/avatar.svg" size="small" />
 				<ChevronDownIcon width={20} height={20} className="text-white" />
 			</MenuButton>
 

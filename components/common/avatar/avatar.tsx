@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import * as React from 'react';
 import clsx from 'clsx';
-import Icons from 'const/icons';
+
+const DEFAULT_AVATAR = '/icons/svg/avatar.svg';
 
 type AvatarProps = {
 	photoUrl: string;
@@ -25,7 +26,7 @@ export const Avatar: React.FC<AvatarProps> = ({
 			)}
 		>
 			<img
-				src={photoUrl || Icons.avatar}
+				src={photoUrl || DEFAULT_AVATAR}
 				alt="avatar"
 				className="object-cover w-full h-full rounded-full bg-dark-10"
 			/>

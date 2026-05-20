@@ -4,7 +4,7 @@ import { Input, InputEmail } from 'components/form';
 import InputPassword from 'components/form/input-password/input-password';
 import { LayoutLogin } from 'components/layout';
 import NextAuthProvidersEnum from 'const/auth';
-import Icons from 'const/icons';
+import { toast } from 'sonner';
 import RolesEnum from 'const/role';
 import AppRoutes from 'const/routes';
 import { UserI } from 'interfaces';
@@ -74,7 +74,7 @@ export const SignUpScreen: React.FC<SignUpProps> = () => {
 
 				// User created succesfully
 				if (signUpResponse.status === 201) {
-					alert('Your user has been created!');
+					toast.success('Your user has been created!');
 					await signIn(NextAuthProvidersEnum.CREDENTIALS, {
 						email: data.email,
 						password: data.email,
@@ -157,7 +157,9 @@ export const SignUpScreen: React.FC<SignUpProps> = () => {
 					size="full"
 					onClick={() => handleSubmitData(NextAuthProvidersEnum.GOOGLE)}
 					disabled={isLoading}
-					icon={Icons.google}
+					icon={
+						<img src="/icons/svg/google.svg" alt="Google" className="w-6 h-6" />
+					}
 					iconLeft
 					label="Sign up with Google"
 				/>
@@ -165,7 +167,13 @@ export const SignUpScreen: React.FC<SignUpProps> = () => {
 					size="full"
 					onClick={() => handleSubmitData(NextAuthProvidersEnum.FACEBOOK)}
 					disabled={isLoading}
-					icon={Icons.facebook}
+					icon={
+						<img
+							src="/icons/svg/facebook.svg"
+							alt="Facebook"
+							className="w-6 h-6"
+						/>
+					}
 					iconLeft
 					label="Sign up with Facebook"
 				/>

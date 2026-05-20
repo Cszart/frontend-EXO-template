@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SyntheticEvent } from 'react';
+import { SyntheticEvent, ReactNode } from 'react';
 import { ErrorOption, RegisterOptions } from 'react-hook-form';
 
 /**
@@ -25,8 +25,8 @@ export interface InputProps {
 	customPlaceholder?: string;
 	rules?: Record<string, unknown>;
 	isDirty?: boolean;
-	iconRight?: string | undefined;
-	iconLeft?: string | undefined;
+	iconRight?: ReactNode;
+	iconLeft?: ReactNode;
 	setValueInput?: any;
 	labelVisible?: boolean;
 	primary?: boolean;

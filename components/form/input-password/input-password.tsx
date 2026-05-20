@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Input } from '../input/input';
 import { InputProps } from 'interfaces';
-import Icons from 'const/icons';
 import { CypressI } from 'interfaces/cypress';
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/20/solid';
 
 const InputPassword: React.FC<
 	InputProps &
@@ -52,7 +52,13 @@ const InputPassword: React.FC<
 		<Input
 			type={isVisible ? 'text' : 'password'}
 			rules={finalRules}
-			iconRight={isVisible ? Icons.visible : Icons.invisible}
+			iconRight={
+				isVisible ? (
+					<EyeIcon className="w-6 h-6 text-dark-80 cursor-pointer" />
+				) : (
+					<EyeSlashIcon className="w-6 h-6 text-dark-80 cursor-pointer" />
+				)
+			}
 			rightClick={handleClick}
 			{...props}
 		/>

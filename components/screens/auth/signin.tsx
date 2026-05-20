@@ -11,8 +11,8 @@ import { InputEmail } from 'components/form';
 import InputPassword from 'components/form/input-password/input-password';
 import { LayoutLogin } from 'components/layout';
 
-import Icons from 'const/icons';
 import NextAuthProvidersEnum from 'const/auth';
+import { toast } from 'sonner';
 import AppRoutes from 'const/routes';
 
 import Logger from 'utils/logger';
@@ -128,7 +128,7 @@ export const SignInScreen: React.FC<SignInProps> = () => {
 
 				// Compare connected address with the one that signed
 				if (address !== addressThatSigned) {
-					alert(
+					toast.error(
 						'The address connected to this app is different from the one that signed'
 					);
 					return;
@@ -223,7 +223,9 @@ export const SignInScreen: React.FC<SignInProps> = () => {
 					size="full"
 					onClick={() => handleSubmitData(NextAuthProvidersEnum.GOOGLE)}
 					disabled={isLoading || isLoadingWallet || isLoadingSign}
-					icon={Icons.google}
+					icon={
+						<img src="/icons/svg/google.svg" alt="Google" className="w-6 h-6" />
+					}
 					iconLeft
 					label="Sign in with Google"
 				/>
@@ -233,7 +235,13 @@ export const SignInScreen: React.FC<SignInProps> = () => {
 					size="full"
 					onClick={() => handleSubmitData(NextAuthProvidersEnum.FACEBOOK)}
 					disabled={isLoading || isLoadingWallet || isLoadingSign}
-					icon={Icons.facebook}
+					icon={
+						<img
+							src="/icons/svg/facebook.svg"
+							alt="Facebook"
+							className="w-6 h-6"
+						/>
+					}
 					iconLeft
 					label="Sign in with Facebook"
 				/>

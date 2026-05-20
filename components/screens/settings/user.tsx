@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from 'react';
+import { toast } from 'sonner';
 import { Layout } from 'components/layout';
 import { Option, UserI } from 'interfaces';
 import SimpleTable from 'components/common/tables/simpleTable';
@@ -95,12 +96,12 @@ const UsersScreen = (): JSX.Element => {
 
 		if (selectedUser) {
 			const updateResponse = await userService.update(selectedUser.id, payload);
-			alert(updateResponse.message);
+			toast.success(updateResponse.message);
 		} else {
 			const createResponse = await userService.create({
 				...payload,
 			});
-			alert(createResponse.message);
+			toast.success(createResponse.message);
 		}
 
 		fetchUsers();
@@ -116,7 +117,7 @@ const UsersScreen = (): JSX.Element => {
 			setIsLoading(true);
 			const deleteResponse = await userService.delete(selectedUser.id);
 
-			alert(deleteResponse.message);
+			toast.success(deleteResponse.message);
 			fetchUsers();
 			setIsLoading(false);
 			hideDeleteUser();

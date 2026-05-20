@@ -1,4 +1,5 @@
 import { NavigationOptions } from 'interfaces';
+import { toast } from 'sonner';
 
 /**
  * In this const file should be placed all const related to header,
@@ -48,7 +49,7 @@ export const headerNavbarOptions: NavigationOptions[] = [
 		name: 'click',
 		label: 'Click',
 		onClick: () => {
-			alert('Header click action');
+			toast('Header click action');
 		},
 	},
 ];

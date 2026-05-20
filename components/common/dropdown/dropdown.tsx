@@ -14,7 +14,6 @@ import {
 	itemIsNotNullAndNotUndefined,
 	itemIsNullOrUndefined,
 } from 'utils/common';
-import { Icon } from '../icon';
 import { CypressI } from 'interfaces/cypress';
 
 export interface DropdownProps {
@@ -90,7 +89,7 @@ export const Dropdown: React.FC<DropdownProps & CypressI> = ({
 									className={classNameMenuItem}
 								>
 									{item.icon && (
-										<Icon src={item.icon} className="max-w-4 max-h-4" />
+										<div className="max-w-4 max-h-4">{item.icon}</div>
 									)}
 
 									{/* If it's a link */}

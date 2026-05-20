@@ -1,18 +1,19 @@
 import * as React from 'react';
 import parse from 'html-react-parser';
 import { saveAs } from 'file-saver';
+import { toast } from 'sonner';
 
 import { Layout } from 'components/layout';
 import { Button, Tabs, Typography } from 'components/common';
 import { useRouter } from 'next/router';
 import { EmailTemplateI } from 'interfaces';
-import Icons from 'const/icons';
 import SimpleTextEditor from 'components/text-editor/textEditor';
 import { emailService } from 'api_services';
 import useModal from 'hooks/useModal';
 import { InputText } from 'components/form';
 import { useForm } from 'react-hook-form';
 import clsx from 'clsx';
+import { ArrowDownTrayIcon } from '@heroicons/react/20/solid';
 
 const saveHtmlToFile = (htmlContent: string, fileName: string): void => {
 	const blob = new Blob([htmlContent], { type: 'text/html' });
@@ -103,7 +104,7 @@ const EmailContentEditorScreen = (): JSX.Element => {
 					);
 
 					if (updateResponse.status == 200) {
-						alert('Template updated succesfully!');
+						toast.success('Template updated succesfully!');
 					}
 				}
 
@@ -118,7 +119,7 @@ const EmailContentEditorScreen = (): JSX.Element => {
 					});
 
 					if (createResponse.status == 200) {
-						alert('Template created succesfully!');
+						toast.success('Template created succesfully!');
 					}
 				}
 			}
@@ -129,7 +130,7 @@ const EmailContentEditorScreen = (): JSX.Element => {
 		} catch (error) {
 			console.error('Error updating template:', error);
 			setIsLoading(false);
-			alert('Error updating template. Please try again.');
+			toast.error('Error updating template. Please try again.');
 		}
 	};
 
@@ -171,7 +172,7 @@ const EmailContentEditorScreen = (): JSX.Element => {
 					decoration="not-fill"
 					size="extra-small"
 					iconRight
-					icon={Icons.download}
+					icon={<ArrowDownTrayIcon className="w-6 h-6" />}
 					className="rounded-[32px]"
 					onClick={() => saveHtmlToFile(previewContent ?? '', 'template.html')}
 				/>

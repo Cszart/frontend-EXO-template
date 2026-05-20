@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { toast } from 'sonner';
 import { Layout } from 'components/layout';
 import { RoleI } from 'interfaces';
 import SimpleTable from 'components/common/tables/simpleTable';
@@ -66,14 +67,14 @@ const RolesScreen = (): JSX.Element => {
 				role,
 			});
 
-			alert(updateResponse.message);
+			toast.success(updateResponse.message);
 		} else {
 			const createResponse = await rolesService.create({
 				uuid: role,
 				role: role,
 			});
 
-			alert(createResponse.message);
+			toast.success(createResponse.message);
 		}
 
 		fetchRoles();
@@ -89,7 +90,7 @@ const RolesScreen = (): JSX.Element => {
 			setIsLoading(true);
 			const deleteResponse = await rolesService.delete(idSelectedRole);
 
-			alert(deleteResponse.message);
+			toast.success(deleteResponse.message);
 			fetchRoles();
 			setIsLoading(false);
 			hideDeleteRole();

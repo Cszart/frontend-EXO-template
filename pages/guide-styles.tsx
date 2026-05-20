@@ -12,9 +12,10 @@ import SimpleTable from 'components/common/tables/simpleTable';
 import { InputText, InputEmail, InputList } from 'components/form';
 import InputPassword from 'components/form/input-password/input-password';
 import { Layout } from 'components/layout';
-import Icons from 'const/icons';
 import { UserI } from 'interfaces';
 import { useForm } from 'react-hook-form';
+import { HomeIcon, PencilSquareIcon } from '@heroicons/react/20/solid';
+import { toast } from 'sonner';
 
 const DummyUsersData = [
 	{
@@ -173,42 +174,42 @@ const GuideStyles = (): JSX.Element => {
 						decoration="fill"
 						size="fit"
 						iconLeft
-						icon={Icons.home}
+						icon={<HomeIcon className="w-6 h-6" />}
 						label="Button iconLeft"
 					></Button>
 					<Button
 						decoration="fill"
 						size="fit"
 						iconRight
-						icon={Icons.home}
+						icon={<HomeIcon className="w-6 h-6" />}
 						label="Button iconRight"
 					></Button>
 					<Button
 						decoration="line-primary"
 						size="fit"
 						iconLeft
-						icon={Icons.home}
+						icon={<HomeIcon className="w-6 h-6" />}
 						label="Button iconLeft"
 					></Button>
 					<Button
 						decoration="line-primary"
 						size="fit"
 						iconRight
-						icon={Icons.home}
+						icon={<HomeIcon className="w-6 h-6" />}
 						label="Button iconRight"
 					></Button>
 					<Button
 						decoration="not-fill"
 						size="fit"
 						iconLeft
-						icon={Icons.home}
+						icon={<HomeIcon className="w-6 h-6" />}
 						label="Button iconLeft"
 					></Button>
 					<Button
 						decoration="not-fill"
 						size="fit"
 						iconRight
-						icon={Icons.home}
+						icon={<HomeIcon className="w-6 h-6" />}
 						label="Button iconRight"
 					></Button>
 				</div>
@@ -222,17 +223,17 @@ const GuideStyles = (): JSX.Element => {
 							{
 								name: 'item1',
 								label: 'Item 1',
-								onClick: () => alert('This is item 1'),
+								onClick: () => toast('This is item 1'),
 							},
 							{
 								name: 'item2',
 								label: 'Item 2',
-								onClick: () => alert('This is item 2'),
+								onClick: () => toast('This is item 2'),
 							},
 							{
 								name: 'item3',
 								label: 'Item 3',
-								onClick: () => alert('This is item 3'),
+								onClick: () => toast('This is item 3'),
 							},
 						]}
 					/>
@@ -241,10 +242,10 @@ const GuideStyles = (): JSX.Element => {
 				{/* Avatars */}
 				<Separator text="Avatars" />
 				<div className="flex flex-wrap justify-betwen gap-10 w-full">
-					<Avatar photoUrl={Icons.avatar} className="w-20 h-20" />
-					<Avatar photoUrl={Icons.avatar} size="large" />
-					<Avatar photoUrl={Icons.avatar} size="medium" />
-					<Avatar photoUrl={Icons.avatar} size="small" />
+					<Avatar photoUrl="/icons/svg/avatar.svg" className="w-20 h-20" />
+					<Avatar photoUrl="/icons/svg/avatar.svg" size="large" />
+					<Avatar photoUrl="/icons/svg/avatar.svg" size="medium" />
+					<Avatar photoUrl="/icons/svg/avatar.svg" size="small" />
 				</div>
 
 				{/* Inputs */}
@@ -349,9 +350,9 @@ const GuideStyles = (): JSX.Element => {
 							{
 								label: 'Edit',
 								name: 'edit',
-								icon: Icons.edit,
+								icon: <PencilSquareIcon className="w-4 h-4" />,
 								onClick: (instance) => {
-									alert('You are editing item ' + instance.id);
+									toast('You are editing item ' + instance.id);
 								},
 							},
 						]}
@@ -396,19 +397,19 @@ const GuideStyles = (): JSX.Element => {
 									label: 'Action 1',
 									name: 'action1',
 									onClick: () =>
-										alert(`This Action 1 for user ${instance.name}`),
+										toast(`This Action 1 for user ${instance.name}`),
 								},
 								{
 									label: 'Action 2',
 									name: 'action2',
 									onClick: () =>
-										alert(`This Action 2 for user ${instance.email}`),
+										toast(`This Action 2 for user ${instance.email}`),
 								},
 								{
 									label: 'Action 3',
 									name: 'action3',
 									onClick: () =>
-										alert(`This Action 3 for user ${instance.username}`),
+										toast(`This Action 3 for user ${instance.username}`),
 								},
 							];
 						}}

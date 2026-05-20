@@ -1,7 +1,12 @@
 import { NavigationOptions } from 'interfaces';
 import AppRoutes from './routes';
 import RolesEnum from './role';
-import Icons from './icons';
+import {
+	HomeIcon,
+	Cog6ToothIcon,
+	EnvelopeIcon,
+	EyeIcon,
+} from '@heroicons/react/20/solid';
 
 /**
  * This file will hold the possible navigation options for the sidebar
@@ -14,21 +19,13 @@ const cmsSidebarNavigation: NavigationOptions[] = [
 		name: 'dashboard',
 		label: 'Dashboard',
 		href: AppRoutes.HOME,
-		icon: Icons.home,
-		iconProps: {
-			src: Icons.home,
-			fillWhitePath: true,
-		},
+		icon: <HomeIcon className="w-4 h-4 text-white" />,
 	},
 	{
 		name: 'settings',
 		label: 'Settings',
 		roles: [RolesEnum.ADMIN, RolesEnum.MODERATOR],
-		icon: Icons.gear,
-		iconProps: {
-			src: Icons.home,
-			fillWhitePath: true,
-		},
+		icon: <Cog6ToothIcon className="w-4 h-4 text-white" />,
 		subOptions: [
 			{
 				name: 'roles',
@@ -51,11 +48,7 @@ const cmsSidebarNavigation: NavigationOptions[] = [
 		name: 'email',
 		label: 'Email',
 		roles: [RolesEnum.ADMIN, RolesEnum.MODERATOR],
-		icon: Icons.envelope,
-		iconProps: {
-			src: Icons.home,
-			fillWhitePath: true,
-		},
+		icon: <EnvelopeIcon className="w-4 h-4 text-white" />,
 		subOptions: [
 			{
 				name: 'emailEditor',
@@ -75,11 +68,7 @@ const cmsSidebarNavigation: NavigationOptions[] = [
 		name: 'guide-styles',
 		label: 'Guide styles',
 		href: '/guide-styles',
-		icon: Icons.visible,
-		iconProps: {
-			src: Icons.home,
-			fillWhitePath: true,
-		},
+		icon: <EyeIcon className="w-4 h-4 text-white" />,
 	},
 
 	// THESE ARE FOR TESTING ROLES AND PERMISSIONS

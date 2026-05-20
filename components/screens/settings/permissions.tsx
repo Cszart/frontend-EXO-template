@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { toast } from 'sonner';
 import { Layout } from 'components/layout';
 import { PermissionI } from 'interfaces';
 import { permissionService } from 'api_services';
@@ -80,10 +81,10 @@ const PermissionsScreen = (): JSX.Element => {
 				idSelectedPermission,
 				payload
 			);
-			alert(updateResponse.message);
+			toast.success(updateResponse.message);
 		} else {
 			const createResponse = await permissionService.create(payload);
-			alert(createResponse.message);
+			toast.success(createResponse.message);
 		}
 
 		fetchPermissions();
@@ -101,7 +102,7 @@ const PermissionsScreen = (): JSX.Element => {
 			const deleteResponse =
 				await permissionService.delete(idSelectedPermission);
 
-			alert(deleteResponse.message);
+			toast.success(deleteResponse.message);
 			fetchPermissions();
 			setIsLoading(false);
 			hideDeletePermission();

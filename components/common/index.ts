@@ -1,6 +1,5 @@
 export * from './avatar';
 export * from './button';
-export * from './icon';
 export * from './dropdown';
 export * from './paginationBar';
 export * from './separator';

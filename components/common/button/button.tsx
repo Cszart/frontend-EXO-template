@@ -2,7 +2,6 @@ import * as React from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { Typography } from '../typography';
-import { Icon } from '../icon';
 import { Spinner } from '../spinner';
 import { CypressI } from 'interfaces/cypress';
 
@@ -14,7 +13,7 @@ export interface ButtonProps {
 	size?: 'extra-small' | 'small' | 'medium' | 'large' | 'full' | 'fit';
 	onClick?: () => void;
 	label?: string;
-	icon?: string;
+	icon?: React.ReactNode;
 	href?: string;
 	loading?: boolean;
 	iconLeft?: boolean;
@@ -97,20 +96,12 @@ const ButtonContent: React.FC<
 		>
 			{label ? (
 				<div className="flex items-center justify-end">
-					{icon && iconLeft && (
-						<span className="w-6 h-6 mr-2">
-							<Icon src={icon} />
-						</span>
-					)}
+					{icon && iconLeft && <span className="w-6 h-6 mr-2">{icon}</span>}
 					<Typography type="link-1">
 						<span>{label}</span>
 					</Typography>{' '}
 					{loading && <Spinner className="mx-2" />}
-					{icon && iconRight && (
-						<span className="w-6 h-6 ml-2">
-							<Icon src={icon} />
-						</span>
-					)}
+					{icon && iconRight && <span className="w-6 h-6 ml-2">{icon}</span>}
 				</div>
 			) : (
 				children

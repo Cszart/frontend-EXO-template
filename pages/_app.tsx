@@ -16,8 +16,7 @@ import { http, createConfig, WagmiProvider } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 import { injected, coinbaseWallet } from 'wagmi/connectors';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
-import Icons from 'const/icons';
+import { Toaster } from 'sonner';
 
 // Set up wagmi config
 const wagmiConfig = createConfig({
@@ -26,7 +25,7 @@ const wagmiConfig = createConfig({
 		injected(),
 		coinbaseWallet({
 			appName: 'EXO Template',
-			appLogoUrl: Icons.coinbase,
+			appLogoUrl: '/icons/svg/coinbase.svg',
 		}),
 	],
 	transports: {
@@ -50,6 +49,7 @@ AppProps): any {
 				<WagmiProvider config={wagmiConfig}>
 					<QueryClientProvider client={queryClient}>
 						<Component {...pageProps} />
+						<Toaster richColors position="top-right" />
 					</QueryClientProvider>
 				</WagmiProvider>
 			</SessionProvider>
