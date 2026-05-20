@@ -7,6 +7,7 @@ import NextAuthProvidersEnum from 'const/auth';
 import { toast } from 'sonner';
 import RolesEnum from 'const/role';
 import AppRoutes from 'const/routes';
+import { brand } from 'const';
 import { UserI } from 'interfaces';
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
@@ -64,8 +65,7 @@ export const SignUpScreen: React.FC<SignUpProps> = () => {
 					email: data.email,
 					username: data.username,
 					name: data.name,
-					image:
-						'https://i.pinimg.com/736x/3f/94/70/3f9470b34a8e3f526dbdb022f9f19cf7.jpg',
+					image: brand.defaultAvatar,
 					roles: [RolesEnum.USER],
 					permissions: [],
 				};

@@ -13,6 +13,7 @@ import { allPermissions, onlyViewPermissions } from 'utils';
 import { DeleteModalContent } from 'components/modals';
 import RolesEnum from 'const/role';
 import PermissionsEnum from 'const/permissions';
+import { brand } from 'const';
 
 const UsersScreen = (): JSX.Element => {
 	// Utils
@@ -86,10 +87,7 @@ const UsersScreen = (): JSX.Element => {
 			name: formData.name,
 			email: formData.email,
 			username: formData.username,
-			image:
-				formData && formData.image
-					? formData.image
-					: 'https://i.pinimg.com/736x/3f/94/70/3f9470b34a8e3f526dbdb022f9f19cf7.jpg',
+			image: formData && formData.image ? formData.image : brand.defaultAvatar,
 			roles: [formData.role],
 			permissions: permissionsData,
 		};
