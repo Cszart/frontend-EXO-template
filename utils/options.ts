@@ -16,7 +16,12 @@ export function filterNavigationOptionsByRolesOrPermissions(
 			acc.push({
 				...option,
 				...(option.subOptions && option.subOptions.length > 0
-					? { subOptions: filterNavigationOptionsByRolesOrPermissions(option.subOptions, user) }
+					? {
+							subOptions: filterNavigationOptionsByRolesOrPermissions(
+								option.subOptions,
+								user
+							),
+						}
 					: {}),
 			});
 			return acc;
@@ -34,7 +39,12 @@ export function filterNavigationOptionsByRolesOrPermissions(
 			acc.push({
 				...option,
 				...(option.subOptions && option.subOptions.length > 0
-					? { subOptions: filterNavigationOptionsByRolesOrPermissions(option.subOptions, user) }
+					? {
+							subOptions: filterNavigationOptionsByRolesOrPermissions(
+								option.subOptions,
+								user
+							),
+						}
 					: {}),
 			});
 		}
