@@ -1,5 +1,10 @@
-import React, { Fragment } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
+import React from 'react';
+import {
+	Dialog,
+	DialogBackdrop,
+	Transition,
+	TransitionChild,
+} from '@headlessui/react';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -21,7 +26,7 @@ export const SidebarMobile: React.FC<LayoutDashboardProps> = ({
 	return (
 		<>
 			{/* Sidebar mobile */}
-			<Transition.Root show={sidebarOpen} as={Fragment}>
+			<Transition show={sidebarOpen}>
 				<Dialog
 					as="div"
 					static
@@ -30,8 +35,7 @@ export const SidebarMobile: React.FC<LayoutDashboardProps> = ({
 					onClose={setSidebarOpen}
 					// initialFocus={initialFocus}
 				>
-					<Transition.Child
-						as={Fragment}
+					<TransitionChild
 						enter="transition-opacity ease-linear duration-300"
 						enterFrom="opacity-0"
 						enterTo="opacity-100"
@@ -39,10 +43,9 @@ export const SidebarMobile: React.FC<LayoutDashboardProps> = ({
 						leaveFrom="opacity-100"
 						leaveTo="opacity-0"
 					>
-						<Dialog.Overlay className="fixed inset-0 bg-gray-600 bg-opacity-75" />
-					</Transition.Child>
-					<Transition.Child
-						as={Fragment}
+						<DialogBackdrop className="fixed inset-0 bg-gray-600 bg-opacity-75" />
+					</TransitionChild>
+					<TransitionChild
 						enter="transition ease-in-out duration-300 transform"
 						enterFrom="-translate-x-full"
 						enterTo="translate-x-0"
@@ -51,8 +54,7 @@ export const SidebarMobile: React.FC<LayoutDashboardProps> = ({
 						leaveTo="-translate-x-full"
 					>
 						<div className="bg-secondary-default relative flex-1 flex flex-col max-w-xs w-full">
-							<Transition.Child
-								as={Fragment}
+							<TransitionChild
 								enter="ease-in-out duration-300"
 								enterFrom="opacity-0"
 								enterTo="opacity-100"
@@ -66,13 +68,9 @@ export const SidebarMobile: React.FC<LayoutDashboardProps> = ({
 										onClick={() => setSidebarOpen(false)}
 									>
 										<span className="sr-only">Close sidebar</span>
-										{/* <XIcon
-											className="w-full p-1 text-white bg-secondary-default rounded-full"
-											aria-hidden="true"
-										/> */}
 									</button>
 								</div>
-							</Transition.Child>
+							</TransitionChild>
 							<div className="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
 								<div className="flex-shrink-0 flex items-center px-4">
 									<Link href="/">
@@ -101,29 +99,11 @@ export const SidebarMobile: React.FC<LayoutDashboardProps> = ({
 													>
 														<div className="flex w-full justify-between">
 															<div className="flex items-center">
-																{/* <img
-																	src={active ? item.iconActive : item.icon}
-																	className="mr-2 flex-shrink-0 h-4 w-4"
-																	aria-hidden="true"
-																	alt="rectangle"
-																/> */}
 																<Typography type="link-1">
 																	{item.label}
 																</Typography>
 															</div>
 															<div className="flex items-center">
-																{/* {item.name !== 'dashboard' && (
-																	<img
-																		src={
-																			active && item.children
-																				? Icons.chevronDown
-																				: Icons.chevronRight
-																		}
-																		className="flex-shrink-0 "
-																		aria-hidden="true"
-																		alt="chevron"
-																	/>
-																)} */}
 																{item.name === 'dashboard' && active && (
 																	<div className="flex items-center h-[2px] w-12 bg-white ml-6 mt-1"></div>
 																)}
@@ -137,12 +117,12 @@ export const SidebarMobile: React.FC<LayoutDashboardProps> = ({
 								</nav>
 							</div>
 						</div>
-					</Transition.Child>
+					</TransitionChild>
 					<div className="flex-shrink-0 w-14" aria-hidden="true">
 						{/* Force sidebar to shrink to fit close icon */}
 					</div>
 				</Dialog>
-			</Transition.Root>
+			</Transition>
 		</>
 	);
 };

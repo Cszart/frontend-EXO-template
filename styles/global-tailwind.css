@@ -1,4 +1,14 @@
-:root {
+@import "tailwindcss";
+
+@plugin "@headlessui/tailwindcss";
+
+@theme {
+	--font-sans: 'Open Sans', sans-serif;
+
+	--breakpoint-xs: 440px;
+	--breakpoint-3xl: 1700px;
+	--breakpoint-4xl: 1920px;
+
 	--color-primary: #212529;
 	--color-dark-0: #f7f7f7;
 	--color-dark-10: #e4e5e7;
@@ -13,21 +23,17 @@
 	--color-yellow: #ffbd00;
 	--color-alert-success: #37a211;
 	--color-alert-error: #b52423;
+	--color-transparent: rgba(0, 0, 0, 0);
 	--color-opacity-primary: rgba(33, 37, 41, 0.4);
 }
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 @layer utilities {
 	.hide-scroll-bar::-webkit-scrollbar {
 		display: none;
 	}
 
-	/* Hide scrollbar for IE, Edge and Firefox */
 	.hide-scroll-bar {
-		-ms-overflow-style: none; /* IE and Edge */
-		scrollbar-width: none; /* Firefox */
+		-ms-overflow-style: none;
+		scrollbar-width: none;
 	}
 }

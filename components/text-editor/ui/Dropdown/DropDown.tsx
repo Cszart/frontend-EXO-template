@@ -49,7 +49,7 @@ export function TextEditorDropDownItem({
 
 	useEffect(() => {
 		if (ref && ref.current) {
-			registerItem(ref);
+			registerItem(ref as React.RefObject<HTMLButtonElement>);
 		}
 	}, [ref, registerItem]);
 

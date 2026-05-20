@@ -13,7 +13,7 @@ import TextEditorModal from '../ui/Modal/Modal';
 
 export default function TextEditorUseModal(): [
 	JSX.Element | null,
-	(title: string, showModal: (onClose: () => void) => JSX.Element) => void
+	(title: string, showModal: (onClose: () => void) => JSX.Element) => void,
 ] {
 	const [modalContent, setModalContent] = useState<null | {
 		closeOnClickOutside: boolean;

@@ -98,9 +98,8 @@ const PermissionsScreen = (): JSX.Element => {
 	const handleDeletePermission = async (): Promise<void> => {
 		if (idSelectedPermission) {
 			setIsLoading(true);
-			const deleteResponse = await permissionService.delete(
-				idSelectedPermission
-			);
+			const deleteResponse =
+				await permissionService.delete(idSelectedPermission);
 
 			alert(deleteResponse.message);
 			fetchPermissions();

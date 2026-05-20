@@ -19,12 +19,12 @@ import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin';
-import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
+import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary';
 import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
 import { ListPlugin } from '@lexical/react/LexicalListPlugin';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
-import LexicalClickableLinkPlugin from '@lexical/react/LexicalClickableLinkPlugin';
+import { ClickableLinkPlugin } from '@lexical/react/LexicalClickableLinkPlugin';
 import {
 	AutoLinkPlugin,
 	createLinkMatcherWithRegExp,
@@ -154,7 +154,7 @@ const SimpleTextEditor = (props: SimpleTextEditorProps): JSX.Element => {
 									}
 
 									// Else, return the HTML generated based on the content of the editor
-									return $generateHtmlFromNodes(editor, null);
+									return $generateHtmlFromNodes(editor);
 								})
 							);
 						}}
@@ -167,7 +167,7 @@ const SimpleTextEditor = (props: SimpleTextEditorProps): JSX.Element => {
 					<ListPlugin />
 					<MarkdownShortcutPlugin transformers={TRANSFORMERS} />
 					<AutoLinkPlugin matchers={MATCHERS} />
-					<LexicalClickableLinkPlugin />
+					<ClickableLinkPlugin />
 
 					{/* Local plugins */}
 					<CodeHighlightPlugin />

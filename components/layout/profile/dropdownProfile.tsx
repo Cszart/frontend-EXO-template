@@ -1,6 +1,11 @@
 import * as React from 'react';
-import { Menu, Transition } from '@headlessui/react';
-import { Fragment } from 'react';
+import {
+	Menu,
+	MenuButton,
+	MenuItems,
+	MenuItem,
+	Transition,
+} from '@headlessui/react';
 import { Option } from 'interfaces';
 import Link from 'next/link';
 import { Avatar, Typography } from 'components/common';
@@ -14,13 +19,12 @@ interface DropdownProfileProps {
 export const DropdownProfile: React.FC<DropdownProfileProps> = ({ links }) => {
 	return (
 		<Menu as="div" className="relative">
-			<Menu.Button className="inline-flex space-x-2 items-center justify-center focus:outline-none">
+			<MenuButton className="inline-flex space-x-2 items-center justify-center focus:outline-none">
 				<Avatar photoUrl={Icons.avatar} size="small" />
 				<ChevronDownIcon width={20} height={20} className="text-white" />
-			</Menu.Button>
+			</MenuButton>
 
 			<Transition
-				as={Fragment}
 				enter="transition ease-out duration-100"
 				enterFrom="transform opacity-0 scale-95"
 				enterTo="transform opacity-100 scale-100"
@@ -28,9 +32,9 @@ export const DropdownProfile: React.FC<DropdownProfileProps> = ({ links }) => {
 				leaveFrom="transform opacity-100 scale-100"
 				leaveTo="transform opacity-0 scale-95"
 			>
-				<Menu.Items className="absolute z-10 bg-white mt-1 right-0 origin-top-right shadow-lg rounded-lg w-40 hover:bg-dark-10">
+				<MenuItems className="absolute z-10 bg-white mt-1 right-0 origin-top-right shadow-lg rounded-lg w-40 hover:bg-dark-10">
 					{links.map((link, index) => (
-						<Menu.Item key={`headerNavbar-${index}`}>
+						<MenuItem key={`headerNavbar-${index}`}>
 							<div className="flex justify-start items-center py-2 px-4 cursor-pointer">
 								{/* Link option */}
 								{link.href != undefined && link.href != null && (
@@ -46,9 +50,9 @@ export const DropdownProfile: React.FC<DropdownProfileProps> = ({ links }) => {
 									</button>
 								)}
 							</div>
-						</Menu.Item>
+						</MenuItem>
 					))}
-				</Menu.Items>
+				</MenuItems>
 			</Transition>
 		</Menu>
 	);

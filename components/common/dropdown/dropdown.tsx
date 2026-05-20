@@ -1,5 +1,10 @@
-import { Menu, Transition } from '@headlessui/react';
-import { Fragment } from 'react';
+import {
+	Menu,
+	MenuButton,
+	MenuItems,
+	MenuItem,
+	Transition,
+} from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import clsx from 'clsx';
 import Link from 'next/link';
@@ -37,7 +42,7 @@ export const Dropdown: React.FC<DropdownProps & CypressI> = ({
 }): JSX.Element => {
 	return (
 		<Menu data-cy={props.dataCY} as="div" className="relative w-fit">
-			<Menu.Button
+			<MenuButton
 				data-cy={`${props.dataCY}-button`}
 				className={clsx(
 					'flex justify-center items-center',
@@ -53,10 +58,9 @@ export const Dropdown: React.FC<DropdownProps & CypressI> = ({
 						aria-hidden="true"
 					/>
 				)}
-			</Menu.Button>
+			</MenuButton>
 
 			<Transition
-				as={Fragment}
 				enter="transition ease-out duration-100"
 				enterFrom="transform opacity-0 scale-95"
 				enterTo="transform opacity-100 scale-100"
@@ -64,7 +68,7 @@ export const Dropdown: React.FC<DropdownProps & CypressI> = ({
 				leaveFrom="transform opacity-100 scale-100"
 				leaveTo="transform opacity-0 scale-95"
 			>
-				<Menu.Items
+				<MenuItems
 					as="div"
 					className={clsx(
 						'absolute right-0 mt-1 z-50 min-w-[100px]',
@@ -79,7 +83,7 @@ export const Dropdown: React.FC<DropdownProps & CypressI> = ({
 					{(props.customItems == undefined || props.customItems == null) &&
 						props.items?.map((item, index) => {
 							return (
-								<Menu.Item
+								<MenuItem
 									as="div"
 									data-cy={`${props.dataCY}-option-${item.label}`}
 									key={`dropDown-option-${item.label}-${index}`}
@@ -112,10 +116,10 @@ export const Dropdown: React.FC<DropdownProps & CypressI> = ({
 												{item.label}
 											</button>
 										)}
-								</Menu.Item>
+								</MenuItem>
 							);
 						})}
-				</Menu.Items>
+				</MenuItems>
 			</Transition>
 		</Menu>
 	);

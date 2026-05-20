@@ -587,7 +587,7 @@ export default function ToolbarPlugin({
 					: $findMatchingParent(anchorNode, (e) => {
 							const parent = e.getParent();
 							return parent !== null && $isRootOrShadowRoot(parent);
-					  });
+						});
 
 			if (element === null) {
 				element = anchorNode.getTopLevelElementOrThrow();
@@ -682,8 +682,8 @@ export default function ToolbarPlugin({
 				$isElementNode(matchingParent)
 					? matchingParent.getFormatType()
 					: $isElementNode(node)
-					? node.getFormatType()
-					: parent?.getFormatType() || 'left'
+						? node.getFormatType()
+						: parent?.getFormatType() || 'left'
 			);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps

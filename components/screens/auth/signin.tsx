@@ -54,17 +54,20 @@ export const SignInScreen: React.FC<SignInProps> = () => {
 		connect,
 		connectors,
 		error,
-		isLoading: isLoadingWallet,
-		pendingConnector,
+		isPending: isLoadingWallet,
+		variables: connectVariables,
 	} = useConnect();
+	const pendingConnectorId =
+		connectVariables?.connector &&
+		typeof connectVariables.connector !== 'function'
+			? connectVariables.connector.id
+			: undefined;
 	const {
 		data: signatureData,
-		isLoading: isLoadingSign,
+		isPending: isLoadingSign,
 		error: errorSign,
 		signMessage,
-	} = useSignMessage({
-		message: messageToSign,
-	});
+	} = useSignMessage();
 
 	// SUBMIT function
 	const handleSubmitData = async (
@@ -103,7 +106,7 @@ export const SignInScreen: React.FC<SignInProps> = () => {
 		const triggerSignWithWallet = async (): Promise<void> => {
 			if (isConnected && address && signMessage) {
 				logger.info('User address: ', { address, connector });
-				signMessage();
+				signMessage({ message: messageToSign });
 			}
 		};
 
@@ -243,12 +246,9 @@ export const SignInScreen: React.FC<SignInProps> = () => {
 						onClick={() => {
 							connect({ connector });
 						}}
-						loading={
-							(isLoadingWallet || isLoadingSign) &&
-							connector.id === pendingConnector?.id
-						}
+						loading={isLoadingWallet && connector.id === pendingConnectorId}
 						disabled={isLoading || isLoadingWallet || isLoadingSign}
-						icon={connector.options.ap1pLogoUrl}
+						icon={connector.icon}
 						iconLeft
 						label={connector.name}
 					/>

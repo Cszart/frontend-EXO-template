@@ -4,7 +4,12 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { NavigationOptions } from 'interfaces';
 import AppRoutes from 'const/routes';
-import { Disclosure, Transition } from '@headlessui/react';
+import {
+	Disclosure,
+	DisclosureButton,
+	DisclosurePanel,
+	Transition,
+} from '@headlessui/react';
 import { Icon, Typography } from 'components/common';
 import { ChevronRightIcon } from '@heroicons/react/20/solid';
 import { itemIsNotNullAndNotUndefined } from 'utils';
@@ -154,7 +159,7 @@ export const SidebarDesktop: React.FC<SidebarDesktopProps & CypressI> = ({
 									className="w-full"
 									defaultOpen={getDefaultOpen(item)}
 								>
-									<Disclosure.Button
+									<DisclosureButton
 										data-cy={`${dataCY}-option-${item.name}`}
 										className={clsx(
 											'flex justify-between items-center w-full',
@@ -180,7 +185,7 @@ export const SidebarDesktop: React.FC<SidebarDesktopProps & CypressI> = ({
 
 										{/* Arrow Icon */}
 										<ChevronRightIcon className="text-white w-6 ui-open:rotate-90 ui-open:transform" />
-									</Disclosure.Button>
+									</DisclosureButton>
 
 									{item.subOptions.map((subItem) => {
 										return (
@@ -193,7 +198,7 @@ export const SidebarDesktop: React.FC<SidebarDesktopProps & CypressI> = ({
 												leaveFrom="transform scale-100 opacity-100"
 												leaveTo="transform scale-95 opacity-0"
 											>
-												<Disclosure.Panel className="flex flex-wrap gap-2 w-full justify-start items-center pl-6 mt-3">
+												<DisclosurePanel className="flex flex-wrap gap-2 w-full justify-start items-center pl-6 mt-3">
 													{/* SubItem Icon */}
 													{subItem.icon && typeof subItem.icon == 'string' && (
 														<div className="w-4">
@@ -206,7 +211,7 @@ export const SidebarDesktop: React.FC<SidebarDesktopProps & CypressI> = ({
 
 													{/* Render handler */}
 													{handleRenderItem(subItem)}
-												</Disclosure.Panel>
+												</DisclosurePanel>
 											</Transition>
 										);
 									})}

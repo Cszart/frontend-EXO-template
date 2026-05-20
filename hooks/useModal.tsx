@@ -1,6 +1,12 @@
-import { Transition, Dialog } from '@headlessui/react';
+import {
+	Transition,
+	TransitionChild,
+	Dialog,
+	DialogPanel,
+	DialogTitle,
+} from '@headlessui/react';
 import clsx from 'clsx';
-import React, { Fragment, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 interface ModalProps {
 	title?: string;
@@ -38,7 +44,7 @@ const useModal = (): {
 
 	const Modal: React.FC<ModalProps> = useCallback(
 		(props) => (
-			<Transition.Root appear show={isOpen} as={Fragment}>
+			<Transition appear show={isOpen}>
 				<Dialog
 					as="div"
 					className="relative z-10"
@@ -46,8 +52,7 @@ const useModal = (): {
 					static
 					initialFocus={cancelButtonRef}
 				>
-					<Transition.Child
-						as={Fragment}
+					<TransitionChild
 						enter="ease-out duration-300"
 						enterFrom="opacity-0"
 						enterTo="opacity-100"
@@ -59,14 +64,13 @@ const useModal = (): {
 							className="fixed inset-0"
 							style={{ background: 'rgba(33, 37, 41, 0.4)' }}
 						/>
-					</Transition.Child>
+					</TransitionChild>
 
 					<div
 						className={clsx('fixed inset-0 overflow-y-auto', props.className)}
 					>
 						<div className="flex h-full items-center  justify-center p-4 text-center">
-							<Transition.Child
-								as={Fragment}
+							<TransitionChild
 								enter="ease-out duration-300"
 								enterFrom="opacity-0 scale-95"
 								enterTo="opacity-100 scale-100"
@@ -74,26 +78,26 @@ const useModal = (): {
 								leaveFrom="opacity-100 scale-100"
 								leaveTo="opacity-0 scale-95"
 							>
-								<Dialog.Panel
+								<DialogPanel
 									className={clsx(
 										'transform shadow-xl transition-all',
 										'rounded-2xl bg-white w-full max-w-md p-6 text-left align-middle'
 									)}
 								>
-									<Dialog.Title
+									<DialogTitle
 										as="h3"
 										className="text-lg font-bold text-gray-900"
 									>
 										{props.title}
-									</Dialog.Title>
+									</DialogTitle>
 
 									{props.children}
-								</Dialog.Panel>
-							</Transition.Child>
+								</DialogPanel>
+							</TransitionChild>
 						</div>
 					</div>
 				</Dialog>
-			</Transition.Root>
+			</Transition>
 		),
 		[isOpen]
 	);

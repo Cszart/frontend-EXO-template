@@ -12,51 +12,29 @@ import '../styles/globals.css';
 import '../components/text-editor/themes/default_theme.css';
 
 // Wagmi Connect
-import { WagmiConfig, createConfig, configureChains, mainnet } from 'wagmi';
+import { http, createConfig, WagmiProvider } from 'wagmi';
+import { mainnet } from 'wagmi/chains';
+import { injected, coinbaseWallet } from 'wagmi/connectors';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-// Providers
-import { alchemyProvider } from 'wagmi/providers/alchemy';
-import { publicProvider } from 'wagmi/providers/public';
-
-import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
-import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import Icons from 'const/icons';
-// import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-
-// Configure chains & providers with the Alchemy provider.
-// Two popular providers are Alchemy (alchemy.com) and Infura (infura.io)
-const { chains, publicClient, webSocketPublicClient } = configureChains(
-	[mainnet],
-	[
-		alchemyProvider({ apiKey: 'Tvh4Yuo5GEbwg4YefZeE9mqcDJ0Brgib' }),
-		publicProvider(),
-	]
-);
 
 // Set up wagmi config
-const config = createConfig({
-	autoConnect: true,
+const wagmiConfig = createConfig({
+	chains: [mainnet],
 	connectors: [
-		new MetaMaskConnector({
-			chains,
+		injected(),
+		coinbaseWallet({
+			appName: 'EXO Template',
+			appLogoUrl: Icons.coinbase,
 		}),
-		new CoinbaseWalletConnector({
-			chains,
-			options: {
-				appName: 'wagmi',
-				appLogoUrl: Icons.coinbase,
-			},
-		}),
-		// new WalletConnectConnector({
-		// 	chains,
-		// 	options: {
-		// 		projectId: '...',
-		// 	},
-		// }),
 	],
-	publicClient,
-	webSocketPublicClient,
+	transports: {
+		[mainnet.id]: http(),
+	},
 });
+
+const queryClient = new QueryClient();
 
 export default function App({
 	Component,
@@ -69,9 +47,11 @@ AppProps): any {
 				<title>Frontend template</title>
 			</Head>
 			<SessionProvider session={session}>
-				<WagmiConfig config={config}>
-					<Component {...pageProps} />
-				</WagmiConfig>
+				<WagmiProvider config={wagmiConfig}>
+					<QueryClientProvider client={queryClient}>
+						<Component {...pageProps} />
+					</QueryClientProvider>
+				</WagmiProvider>
 			</SessionProvider>
 		</>
 	);

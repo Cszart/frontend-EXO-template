@@ -1,5 +1,12 @@
 import * as React from 'react';
-import { Listbox, Transition } from '@headlessui/react';
+import {
+	Listbox,
+	ListboxButton,
+	ListboxLabel,
+	ListboxOption,
+	ListboxOptions,
+	Transition,
+} from '@headlessui/react';
 import { InputProps, Option } from 'interfaces';
 import clsx from 'clsx';
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/24/solid';
@@ -49,13 +56,13 @@ export const InputList: React.FC<
 			<Listbox value={selected} onChange={setSelected}>
 				{({ open }) => (
 					<>
-						<Listbox.Label className="block">
+						<ListboxLabel className="block">
 							<label htmlFor="name" className="text-xs text-dark-100">
 								{props.title}
 							</label>
-						</Listbox.Label>
+						</ListboxLabel>
 						<div className="relative">
-							<Listbox.Button
+							<ListboxButton
 								className={clsx(
 									'relative w-full text-left cursor-pointer border flex focus:outline-none',
 									!selected.placeholder && 'capitalize',
@@ -82,16 +89,14 @@ export const InputList: React.FC<
 										className="text-dark-100"
 									/>
 								</span>
-							</Listbox.Button>
+							</ListboxButton>
 							<Transition
 								show={open}
-								as={React.Fragment}
 								leave="transition ease-in duration-100"
 								leaveFrom="opacity-100"
 								leaveTo="opacity-0"
 							>
-								<Listbox.Options
-									static
+								<ListboxOptions
 									className={clsx(
 										{ hidden: props.disabled },
 										'max-h-72',
@@ -101,7 +106,7 @@ export const InputList: React.FC<
 									{options.map(
 										(option) =>
 											!option.placeholder && (
-												<Listbox.Option
+												<ListboxOption
 													key={option.name}
 													className={({ active, selected }) =>
 														clsx(
@@ -127,10 +132,10 @@ export const InputList: React.FC<
 															) : null}
 														</div>
 													)}
-												</Listbox.Option>
+												</ListboxOption>
 											)
 									)}
-								</Listbox.Options>
+								</ListboxOptions>
 							</Transition>
 						</div>
 					</>
