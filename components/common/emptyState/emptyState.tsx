@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Typography } from '../typography';
 import Image from 'next/image';
 import { CypressI } from 'interfaces/cypress';
+import { brand } from 'const';
 
 export const EmptyState: React.FC<CypressI> = ({ dataCY }): JSX.Element => {
 	return (
@@ -10,7 +11,7 @@ export const EmptyState: React.FC<CypressI> = ({ dataCY }): JSX.Element => {
 			className="flex flex-col w-full mt-20 justify-center items-center md:m-5"
 		>
 			<Image
-				src="/icons/svg/no_data.svg"
+				src={brand.emptyStateImage}
 				width={100}
 				height={120}
 				alt="empty state"

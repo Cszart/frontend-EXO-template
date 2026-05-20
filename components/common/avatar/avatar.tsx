@@ -1,8 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import * as React from 'react';
 import clsx from 'clsx';
+import { brand } from 'const';
 
-const DEFAULT_AVATAR = '/icons/svg/avatar.svg';
+const DEFAULT_AVATAR = brand.defaultAvatar;
 
 type AvatarProps = {
 	photoUrl: string;
