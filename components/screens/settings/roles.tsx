@@ -218,27 +218,4 @@ const RolesScreen = (): JSX.Element => {
 	);
 };
 
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-// 	const session = await getSession(context);
-
-// 	const redirect: Redirect | undefined = await withAuthorizationServerSide({
-// 		session: session,
-// 		allowedRoles: crudRoles(),
-// 		allowedRoles: [RolesEnum.ADMIN],
-// 		redirectTo: AppRoutes.HOME,
-// 	});
-
-// 	return {
-// 		props: {},
-// 		redirect: redirect,
-// 	};
-// };
-
-// export default withAuthorization(
-// 	RolesScreen,
-// 	crudRoles(),
-// 	[RolesEnum.ADMIN],
-// 	AppRoutes.HOME
-// );
-
 export default RolesScreen;

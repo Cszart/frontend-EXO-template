@@ -5,5 +5,4 @@ export * from './lexicaltheme';
 export * from './permissions';
 export * from './role';
 export * from './routes';
-export * from './session';
 export * from './sideBarNavigation';

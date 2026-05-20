@@ -1,10 +1,9 @@
-// Local components
-import withAuthorizationServerSide from 'components/auth/withAuthorizationServerSide';
+import { requireAuth } from 'components/auth/requireAuth';
 import { Typography } from 'components/common';
 import { Layout } from 'components/layout';
 import RolesEnum from 'const/role';
 import AppRoutes from 'const/routes';
-import { GetServerSideProps, Redirect } from 'next';
+import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import Image from 'next/image';
 
@@ -31,17 +30,14 @@ const HomePage = (): any => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const session = await getSession(context);
-	const redirect: Redirect | undefined = await withAuthorizationServerSide({
-		session: session,
-		allowedPermissions: undefined,
+	const redirect = requireAuth({
+		session,
 		allowedRoles: [RolesEnum.ADMIN, RolesEnum.MODERATOR, RolesEnum.USER],
 		redirectTo: AppRoutes.AUTH_SIGN_IN,
 	});
 
-	return {
-		props: {},
-		redirect: redirect,
-	};
+	if (redirect) return { redirect };
+	return { props: {} };
 };
 
 export default HomePage;

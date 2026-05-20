@@ -1,8 +1,8 @@
 import { SignUpScreen } from 'components/screens';
 import NextAuthProvidersEnum from 'const/auth';
+import AppRoutes from 'const/routes';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
-import authUtils from 'utils/auth';
 
 const SignUp = (): JSX.Element => {
 	return (
@@ -19,17 +19,11 @@ const SignUp = (): JSX.Element => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const session = await getSession(context);
 
-	let redirectPath = undefined;
-	if (session && session.user)
-		redirectPath = {
-			destination: authUtils.getPathToRedirectLoggedUser(),
-			permanent: false,
-		};
+	if (session?.user) {
+		return { redirect: { destination: AppRoutes.HOME, permanent: false } };
+	}
 
-	return {
-		props: {},
-		redirect: redirectPath,
-	};
+	return { props: {} };
 };
 
 export default SignUp;

@@ -1,43 +1,41 @@
-import { NavigationOptions, RowOptions } from 'interfaces';
-import authUtils from './auth';
-import { itemIsNullOrUndefined } from './common';
+import { NavigationOptions, RowOptions, UserI } from 'interfaces';
 
 /**
- * Filter a set of options based on the user roles and permissions
- *
- * The options will be filtered based on the permissions/roles that are inside options prop
- * and the current user (session user) permissions/roles
- *
- * This function specifically works with Navigation Options
- * @param baseOptions Initial options to be filtered
- * @returns Filtered options
+ * Filter navigation options based on user roles and permissions.
  */
 export function filterNavigationOptionsByRolesOrPermissions(
-	baseOptions: NavigationOptions[]
+	baseOptions: NavigationOptions[],
+	user?: UserI | null
 ): NavigationOptions[] {
 	return baseOptions.filter((option: NavigationOptions) => {
-		// If the option has no roles or permissions specified, include it in the filtered array
 		if (
-			(itemIsNullOrUndefined(option.roles) || option.roles?.length == 0) &&
-			(itemIsNullOrUndefined(option.permissions) ||
-				option.permissions?.length == 0)
+			(!option.roles || option.roles.length === 0) &&
+			(!option.permissions || option.permissions.length === 0)
 		) {
+			if (option.subOptions && option.subOptions.length > 0) {
+				option.subOptions = filterNavigationOptionsByRolesOrPermissions(
+					option.subOptions,
+					user
+				);
+			}
 			return true;
 		}
 
-		// Check if user has permissions/roles to see this item
-		const hasAnyRole = option.roles && authUtils.hasAnyRole(option.roles);
-		const hasAnyPermission =
-			option.permissions && authUtils.hasAnyPermission(option.permissions);
+		const userRoles: string[] = user?.roles ?? [];
+		const userPermissions: string[] = user?.permissions ?? [];
 
-		if (hasAnyRole || hasAnyPermission) {
-			// Check and filter subOptions
+		const hasRole = option.roles?.some((role) => userRoles.includes(role));
+		const hasPermission = option.permissions?.some((perm) =>
+			userPermissions.includes(perm)
+		);
+
+		if (hasRole || hasPermission) {
 			if (option.subOptions && option.subOptions.length > 0) {
 				option.subOptions = filterNavigationOptionsByRolesOrPermissions(
-					option.subOptions
+					option.subOptions,
+					user
 				);
 			}
-
 			return true;
 		}
 
@@ -46,34 +44,28 @@ export function filterNavigationOptionsByRolesOrPermissions(
 }
 
 /**
- * Filter a set of options based on the user roles and permissions
- *
- * The options will be filtered based on the permissions/roles that are inside options prop
- * and the current user (session user) permissions/roles
- *
- * This function works specifically with Row Options in the tables
- *
- * @param baseOptions Initial options to be filtered
- * @returns Filtered options
+ * Filter table row action options based on user roles and permissions.
  */
 export function filterRowOptionsByRolesOrPermissions<T>(
-	baseOptions: RowOptions<T>[]
+	baseOptions: RowOptions<T>[],
+	user?: UserI | null
 ): RowOptions<T>[] {
 	return baseOptions.filter((option) => {
-		// If the option has no roles or permissions specified, include it in the filtered array
 		if (
-			(itemIsNullOrUndefined(option.roles) || option.roles?.length === 0) &&
-			(itemIsNullOrUndefined(option.permissions) ||
-				option.permissions?.length === 0)
+			(!option.roles || option.roles.length === 0) &&
+			(!option.permissions || option.permissions.length === 0)
 		) {
 			return true;
 		}
 
-		// Check if user has permissions/roles to see this item
-		const hasAnyRole = option.roles && authUtils.hasAnyRole(option.roles);
-		const hasAnyPermission =
-			option.permissions && authUtils.hasAnyPermission(option.permissions);
+		const userRoles: string[] = user?.roles ?? [];
+		const userPermissions: string[] = user?.permissions ?? [];
 
-		return hasAnyRole || hasAnyPermission;
+		const hasRole = option.roles?.some((role) => userRoles.includes(role));
+		const hasPermission = option.permissions?.some((perm) =>
+			userPermissions.includes(perm)
+		);
+
+		return hasRole || hasPermission;
 	});
 }
