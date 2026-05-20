@@ -99,4 +99,11 @@ export interface PaginatedTableProps<T> {
 	 * Number of rows to show in a page
 	 */
 	pageSize: number;
+
+	/**
+	 * Total number of pages.
+	 * Required when `rows` is a fetch function.
+	 * When `rows` is an array, it is computed automatically if omitted.
+	 */
+	totalPages?: number;
 }

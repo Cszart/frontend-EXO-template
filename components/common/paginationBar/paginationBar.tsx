@@ -27,9 +27,9 @@ const PaginationBar: React.FC<PaginationBarProps & CypressI> = ({
 	showLastButton = true,
 
 	classNameContainer = 'w-fit',
-	classNameActivePage = 'text-blue-500 font-bold bg-indigo-100 hover:bg-indigo-300 hover:text-blue-800 border-y',
-	classNamePage = 'text-gray-500 font-medium bg-stone-100 hover:bg-stone-300 hover:text-gray-800 border-y',
-	classNameButtons = 'text-gray-500 font-medium bg-stone-100 hover:bg-stone-300 hover:text-gray-800 border-y',
+	classNameActivePage = 'text-white font-bold bg-blue hover:bg-blue/80',
+	classNamePage = 'text-dark-80 font-medium bg-dark-10 hover:bg-dark-30 hover:text-dark-100',
+	classNameButtons = 'text-dark-80 font-medium bg-dark-10 hover:bg-dark-30 hover:text-dark-100',
 }) => {
 	const pageNumbers = Array.from(
 		{ length: totalPages },

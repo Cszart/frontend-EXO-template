@@ -55,7 +55,10 @@ const PaginatedTable = <T,>(
 			<PaginationBar
 				dataCY={`${props.dataCY}-paginationBar`}
 				currentPage={currentPage}
-				totalPages={100}
+				totalPages={
+					props.totalPages ??
+					Math.max(1, Math.ceil(rowsData.length / props.pageSize))
+				}
 				onPageChange={(pageNumber: number) => {
 					setCurrentPage(pageNumber);
 				}}
