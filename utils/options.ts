@@ -7,18 +7,19 @@ export function filterNavigationOptionsByRolesOrPermissions(
 	baseOptions: NavigationOptions[],
 	user?: UserI | null
 ): NavigationOptions[] {
-	return baseOptions.filter((option: NavigationOptions) => {
-		if (
+	return baseOptions.reduce<NavigationOptions[]>((acc, option) => {
+		const hasNoRestrictions =
 			(!option.roles || option.roles.length === 0) &&
-			(!option.permissions || option.permissions.length === 0)
-		) {
-			if (option.subOptions && option.subOptions.length > 0) {
-				option.subOptions = filterNavigationOptionsByRolesOrPermissions(
-					option.subOptions,
-					user
-				);
-			}
-			return true;
+			(!option.permissions || option.permissions.length === 0);
+
+		if (hasNoRestrictions) {
+			acc.push({
+				...option,
+				...(option.subOptions && option.subOptions.length > 0
+					? { subOptions: filterNavigationOptionsByRolesOrPermissions(option.subOptions, user) }
+					: {}),
+			});
+			return acc;
 		}
 
 		const userRoles: string[] = user?.roles ?? [];
@@ -30,17 +31,16 @@ export function filterNavigationOptionsByRolesOrPermissions(
 		);
 
 		if (hasRole || hasPermission) {
-			if (option.subOptions && option.subOptions.length > 0) {
-				option.subOptions = filterNavigationOptionsByRolesOrPermissions(
-					option.subOptions,
-					user
-				);
-			}
-			return true;
+			acc.push({
+				...option,
+				...(option.subOptions && option.subOptions.length > 0
+					? { subOptions: filterNavigationOptionsByRolesOrPermissions(option.subOptions, user) }
+					: {}),
+			});
 		}
 
-		return false;
-	});
+		return acc;
+	}, []);
 }
 
 /**

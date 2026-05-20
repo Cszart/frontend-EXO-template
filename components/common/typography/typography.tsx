@@ -36,6 +36,37 @@ export interface TypographyProps {
 	onClick?: (data?: any) => void;
 }
 
+type Variant = { tag: React.ElementType; className: string };
+
+const variants: Record<string, Variant> = {
+	'custom-p':   { tag: 'p',  className: '' },
+	'custom-h1':  { tag: 'h1', className: '' },
+	'custom-h2':  { tag: 'h2', className: '' },
+	'custom-h3':  { tag: 'h3', className: '' },
+	'custom-h4':  { tag: 'h4', className: '' },
+
+	'headline-2': { tag: 'h1', className: 'text-primary font-bold text-3xl xl:text-4xl' },
+	'headline-3': { tag: 'h3', className: 'text-primary font-bold text-2xl xl:text-3xl' },
+	'headline-4': { tag: 'h4', className: 'text-primary font-bold text-[21px] xl:text-2xl leading-[30px]' },
+	'headline-5': { tag: 'h5', className: 'text-primary font-bold text-lg xl:text-[21px] xl:leading-[26px]' },
+
+	'subtitle-1': { tag: 'h2', className: 'text-primary font-medium text-base xl:text-lg' },
+	'subtitle-2': { tag: 'h2', className: 'text-primary font-medium text-sm xl:text-base' },
+	'subtitle-3': { tag: 'h3', className: 'text-primary font-bold text-sm xl:text-base leading-5' },
+
+	'link-1':     { tag: 'h2', className: 'text-primary font-bold text-sm' },
+	'link-2':     { tag: 'h2', className: 'text-primary font-bold text-xs' },
+
+	'body-1':     { tag: 'h2', className: 'text-primary font-normal text-base' },
+	'body-2':     { tag: 'h2', className: 'text-primary font-normal text-xs' },
+
+	'caption-1':  { tag: 'h2', className: 'text-primary font-light text-[10px] leading-[14px]' },
+	'caption-2':  { tag: 'h2', className: 'text-primary font-medium text-[10px] leading-[14px]' },
+	'caption-3':  { tag: 'h2', className: 'text-primary font-extrabold text-[10px] leading-[14px]' },
+
+	'overline':   { tag: 'h2', className: 'text-primary font-medium text-[8px] leading-[10px]' },
+};
+
 export const Typography: React.FC<TypographyProps & CypressI> = ({
 	id,
 	dataCY,
@@ -45,285 +76,18 @@ export const Typography: React.FC<TypographyProps & CypressI> = ({
 	children,
 	onClick,
 }) => {
-	//              //
-	//              //
-	// Custom Tags  //
-	if (type === 'custom-p')
-		return (
-			<p
-				id={id}
-				data-cy={dataCY}
-				className={clsx(className)}
-				onClick={() => onClick && onClick()}
-			>
-				{children || text}
-			</p>
-		);
-	if (type === 'custom-h1')
-		return (
-			<h1
-				id={id}
-				data-cy={dataCY}
-				className={clsx(className)}
-				onClick={() => onClick && onClick()}
-			>
-				{children || text}
-			</h1>
-		);
-	if (type === 'custom-h2')
-		return (
-			<h2
-				id={id}
-				data-cy={dataCY}
-				className={clsx(className)}
-				onClick={() => onClick && onClick()}
-			>
-				{children || text}
-			</h2>
-		);
-	if (type === 'custom-h3')
-		return (
-			<h3
-				id={id}
-				data-cy={dataCY}
-				className={clsx(className)}
-				onClick={() => onClick && onClick()}
-			>
-				{children || text}
-			</h3>
-		);
-	if (type === 'custom-h4')
-		return (
-			<h4
-				id={id}
-				data-cy={dataCY}
-				className={clsx(className)}
-				onClick={() => onClick && onClick()}
-			>
-				{children || text}
-			</h4>
-		);
+	const variant = variants[type];
+	if (!variant) return null;
 
-	/////////////////////////
-	//                    //
-	// Figma Text Styles  //
-
-	if (type === 'headline-2')
-		return (
-			<h1
-				id={id}
-				data-cy={dataCY}
-				className={clsx(
-					'text-gray-800 font-bold text-3xl',
-					'xl:text-4xl',
-					className
-				)}
-				onClick={() => onClick && onClick()}
-			>
-				{children || text}
-			</h1>
-		);
-
-	if (type === 'headline-3')
-		return (
-			<h3
-				id={id}
-				data-cy={dataCY}
-				className={clsx(
-					'text-gray-800 font-bold text-2xl',
-					'xl:text-3xl',
-					className
-				)}
-				onClick={() => onClick && onClick()}
-			>
-				{children || text}
-			</h3>
-		);
-
-	if (type === 'headline-4')
-		return (
-			<h4
-				id={id}
-				data-cy={dataCY}
-				className={clsx(
-					'text-gray-800 font-bold text-[21px]',
-					'xl:text-2xl leading-[30px]',
-					className
-				)}
-				onClick={() => onClick && onClick()}
-			>
-				{children || text}
-			</h4>
-		);
-
-	if (type === 'headline-5')
-		return (
-			<h5
-				id={id}
-				data-cy={dataCY}
-				className={clsx(
-					'text-gray-800 font-bold text-lg',
-					'xl:text-[21px] xl:leading-[26px]',
-					className
-				)}
-				onClick={() => onClick && onClick()}
-			>
-				{children || text}
-			</h5>
-		);
-
-	if (type === 'subtitle-1')
-		return (
-			<h2
-				id={id}
-				data-cy={dataCY}
-				className={clsx(
-					'text-gray-800 font-medium text-base xl:text-lg',
-					className
-				)}
-				onClick={() => onClick && onClick()}
-			>
-				{children || text}
-			</h2>
-		);
-
-	if (type === 'subtitle-2')
-		return (
-			<h2
-				id={id}
-				data-cy={dataCY}
-				className={clsx(
-					'text-gray-800 font-medium text-sm xl:text-base',
-					className
-				)}
-				onClick={() => onClick && onClick()}
-			>
-				{children || text}
-			</h2>
-		);
-
-	if (type === 'subtitle-3')
-		return (
-			<h3
-				id={id}
-				data-cy={dataCY}
-				className={clsx(
-					'text-gray-800 font-bold text-sm xl:text-base leading-5',
-					className
-				)}
-				onClick={() => onClick && onClick()}
-			>
-				{children || text}
-			</h3>
-		);
-
-	if (type === 'link-1')
-		return (
-			<h2
-				id={id}
-				data-cy={dataCY}
-				className={clsx('text-gray-800 font-bold text-sm', className)}
-				onClick={() => onClick && onClick()}
-			>
-				{children || text}
-			</h2>
-		);
-
-	if (type === 'link-2')
-		return (
-			<h2
-				id={id}
-				data-cy={dataCY}
-				className={clsx('text-gray-800 font-bold text-xs', className)}
-				onClick={() => onClick && onClick()}
-			>
-				{children || text}
-			</h2>
-		);
-
-	if (type === 'body-1')
-		return (
-			<h2
-				id={id}
-				data-cy={dataCY}
-				className={clsx('text-gray-800 font-normal text-base', className)}
-				onClick={() => onClick && onClick()}
-			>
-				{children || text}
-			</h2>
-		);
-
-	if (type === 'body-2')
-		return (
-			<h2
-				id={id}
-				data-cy={dataCY}
-				className={clsx('text-gray-800 font-normal text-xs', className)}
-				onClick={() => onClick && onClick()}
-			>
-				{children || text}
-			</h2>
-		);
-
-	if (type === 'caption-1')
-		return (
-			<h2
-				id={id}
-				data-cy={dataCY}
-				className={clsx(
-					'text-gray-800 font-light text-[10px] leading-[14px]',
-					className
-				)}
-				onClick={() => onClick && onClick()}
-			>
-				{children || text}
-			</h2>
-		);
-
-	if (type === 'caption-2')
-		return (
-			<h2
-				id={id}
-				data-cy={dataCY}
-				className={clsx(
-					'text-gray-800 font-medium text-[10px] leading-[14px]',
-					className
-				)}
-				onClick={() => onClick && onClick()}
-			>
-				{children || text}
-			</h2>
-		);
-
-	if (type === 'caption-3')
-		return (
-			<h2
-				id={id}
-				data-cy={dataCY}
-				className={clsx(
-					'text-gray-800 font-extrabold text-[10px] leading-[14px]',
-					className
-				)}
-				onClick={() => onClick && onClick()}
-			>
-				{children || text}
-			</h2>
-		);
-
-	if (type === 'overline')
-		return (
-			<h2
-				id={id}
-				data-cy={dataCY}
-				className={clsx(
-					'text-gray-800 font-medium text-[8px] leading-[10px]',
-					className
-				)}
-				onClick={() => onClick && onClick()}
-			>
-				{children || text}
-			</h2>
-		);
-
-	return null;
+	const Tag = variant.tag;
+	return (
+		<Tag
+			id={id}
+			data-cy={dataCY}
+			className={clsx(variant.className, className)}
+			onClick={() => onClick?.()}
+		>
+			{children || text}
+		</Tag>
+	);
 };

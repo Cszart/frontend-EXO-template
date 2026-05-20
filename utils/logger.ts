@@ -1,24 +1,25 @@
-import React from 'react';
-
 /**
- * A simple logger component for logging messages with different log levels.
+ * A simple logger utility for logging messages with different log levels.
  *
  * @param {string} identifier - The identifier for the logger.
  * @example
  * const logger = new Logger({ identifier: "Example" });
  * logger.info("example info");
  */
-interface LoggerProps {
+
+interface LoggerConfig {
 	identifier: string;
 }
 
-class Logger extends React.Component<LoggerProps> {
+class Logger {
+	private identifier: string;
+
 	/**
 	 * Creates a new Logger with the specified identifier.
 	 * @param {string} identifier - The identifier for the logger.
 	 */
-	constructor(props: LoggerProps) {
-		super(props);
+	constructor({ identifier }: LoggerConfig) {
+		this.identifier = identifier;
 	}
 
 	/**
@@ -27,7 +28,7 @@ class Logger extends React.Component<LoggerProps> {
 	 * @returns {void}
 	 */
 	info(...args: any[]): void {
-		console.log(`<- [INFO] ${this.props.identifier} :`, ...args);
+		console.log(`<- [INFO] ${this.identifier} :`, ...args);
 	}
 
 	/**
@@ -36,7 +37,7 @@ class Logger extends React.Component<LoggerProps> {
 	 * @returns {void}
 	 */
 	warning(...args: any[]): void {
-		console.log(`<- [WARNING] ${this.props.identifier} :`, ...args);
+		console.log(`<- [WARNING] ${this.identifier} :`, ...args);
 	}
 
 	/**
@@ -45,12 +46,9 @@ class Logger extends React.Component<LoggerProps> {
 	 * @returns {void}
 	 */
 	error(...args: any[]): void {
-		console.log(`<- [ERROR] ${this.props.identifier} :`, ...args);
-	}
-
-	render(): null {
-		return null; // Since this is a utility component, it doesn't need to render anything
+		console.log(`<- [ERROR] ${this.identifier} :`, ...args);
 	}
 }
 
 export default Logger;
+export { Logger };
