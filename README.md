@@ -2,7 +2,7 @@
 
 Este proyecto esta enfocado a reducir el esfuerzo por parte de los desarrolladores al iniciar un nuevo proyecto, con el fin de eliminar de ejecutar tareas repetitivas en cada nuevo desarrollo, impactando directamente los tiempos de entrega. Este proyecto se encuentra licenciado bajo los términos de la Licencia Creative Commons Atribución-NoComercial-CompartirIgual 4.0 Internacional (CC BY-NC-SA 4.0).
 
-## Demo
+## Demos
 
 https://frontend-exo-template.vercel.app/
 
