@@ -53,7 +53,7 @@ export const SidebarMobile: React.FC<LayoutDashboardProps> = ({
 						leaveFrom="translate-x-0"
 						leaveTo="-translate-x-full"
 					>
-						<div className="bg-secondary-default relative flex-1 flex flex-col max-w-xs w-full">
+						<div className="bg-dark-100 relative flex-1 flex flex-col max-w-xs w-full">
 							<TransitionChild
 								enter="ease-in-out duration-300"
 								enterFrom="opacity-0"
@@ -91,10 +91,8 @@ export const SidebarMobile: React.FC<LayoutDashboardProps> = ({
 												<Link href={item.href ?? '#'}>
 													<span
 														className={clsx(
-															active
-																? 'text-white font-bold'
-																: 'text-secondary-disable',
-															'group hover:bg-secondary-hover flex flex-col w-full items-center px-10 py-4 hover:opacity-90 f-16'
+															active ? 'text-white font-bold' : 'text-dark-30',
+															'group hover:bg-dark-80 flex flex-col w-full items-center px-10 py-4 hover:opacity-90 f-16'
 														)}
 													>
 														<div className="flex w-full justify-between">
