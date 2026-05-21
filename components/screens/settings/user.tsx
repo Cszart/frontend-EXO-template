@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import { Layout } from 'components/layout';
@@ -75,7 +74,9 @@ const UsersScreen = (): JSX.Element => {
 	}
 
 	// Create user handler - TODO: implement own logic
-	const handleSubmitData = async (formData: any): Promise<void> => {
+	const handleSubmitData = async (
+		formData: Record<string, string>
+	): Promise<void> => {
 		setIsLoading(true);
 
 		let permissionsData: PermissionsEnum[] = [];

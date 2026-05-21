@@ -64,7 +64,9 @@ const PermissionsScreen = (): JSX.Element => {
 	}
 
 	// Create permission handler - TODO: implement own logic
-	const handleSubmitData = async (formData: any): Promise<void> => {
+	const handleSubmitData = async (
+		formData: Record<string, string>
+	): Promise<void> => {
 		setIsLoading(true);
 		const { category, subCategory, permission } = formData;
 		const permissionUUID = `${category}:${subCategory}:${permission}`; // Should be handled by backend really, but since its a demostration

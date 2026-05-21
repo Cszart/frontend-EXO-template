@@ -58,7 +58,9 @@ const RolesScreen = (): JSX.Element => {
 	}
 
 	// Create role handler - TODO: implement own logic
-	const handleSubmitData = async (formData: any): Promise<void> => {
+	const handleSubmitData = async (
+		formData: Record<string, string>
+	): Promise<void> => {
 		setIsLoading(true);
 		const { role } = formData;
 
