@@ -44,7 +44,6 @@ export default function TextEditorUseModal(): [
 	const showModal = useCallback(
 		(
 			title: any,
-			// eslint-disable-next-line no-shadow
 			getContent: (onClose: () => void) => JSX.Element,
 			closeOnClickOutside = false
 		) => {
