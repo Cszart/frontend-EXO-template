@@ -10,7 +10,7 @@ Items marked with a checkbox `[ ]` are pending. Mark them `[x]` when done.
 
 These are the "copy-paste template" blockers. A new client project should only need to change one config file.
 
-### [ ] Create brand config file
+### [x] Create brand config file — done (`const/brand.ts` created)
 
 **Problem:** Brand values (company name, logo, rights year, default avatar) are scattered and hardcoded across components.
 
@@ -28,52 +28,43 @@ export const brand = {
 
 Then replace every hardcoded reference with an import from this file.
 
-### [ ] Hardcoded base64 logo in layout
+### [x] Hardcoded base64 logo in layout — done (replaced with `brand.logo`)
 
 **File:** `components/layout/layout/layout.tsx` (line ~75)
 
-Currently embeds a full base64-encoded SVG as the sidebar logo. Should use `brand.logo` with Next.js `<Image>` or `<img>`.
+Previously embedded a full base64-encoded SVG as the sidebar logo. Now uses `brand.logo` with Next.js `<Image>` or `<img>`.
 
-### [ ] Hardcoded company name and rights year
+### [x] Hardcoded company name and rights year — done (reads from brand config)
 
 **File:** `components/layout/layout/layout.tsx` (lines ~166-167)
 
-```tsx
-companyName="Shokworks"
-rightsYear="2023"
-```
+Previously hardcoded `companyName="Shokworks"` and `rightsYear="2023"`. Now reads from `brand.name` and `brand.rightsYear`.
 
-Should read from `brand.name` and `brand.rightsYear`.
-
-### [ ] External Pinterest URL as default user image
+### [x] External Pinterest URL as default user image — done (uses `brand.defaultAvatar`)
 
 **Files:**
 - `components/screens/settings/user.tsx`
 - `components/screens/auth/signup.tsx`
 
-```ts
-image: 'https://i.pinimg.com/736x/3f/94/70/3f9470b34a8e3f526dbdb022f9f19cf7.jpg'
-```
+Previously used `https://i.pinimg.com/736x/...` as default avatar. Now uses `brand.defaultAvatar`.
 
-Replace with `brand.defaultAvatar` or a local placeholder image in `public/`.
-
-### [ ] PaginationBar uses off-theme colors
+### [x] PaginationBar uses off-theme colors — done (now uses `bg-blue`, `bg-dark-10`, `text-dark-80`)
 
 **File:** `components/common/paginationBar/paginationBar.tsx`
 
-Uses `bg-indigo-100`, `text-blue-500`, `bg-stone-100` — none of these match the theme defined in `global-tailwind.css`. Should use `bg-blue` / `text-blue` or the CSS custom properties.
+Previously used `bg-indigo-100`, `text-blue-500`, `bg-stone-100`. Now uses theme-aligned classes.
 
-### [ ] Mobile sidebar uses undefined CSS classes
+### [x] Mobile sidebar uses undefined CSS classes — done (now uses `bg-dark-100`, `text-dark-30`, `hover:bg-dark-80`)
 
 **File:** `components/layout/sidebars/mobile.tsx`
 
-References classes that don't exist: `bg-secondary-default`, `text-secondary-disable`, `bg-secondary-hover`. These need to be either defined in the theme or replaced with valid Tailwind classes.
+Previously referenced undefined classes (`bg-secondary-default`, `text-secondary-disable`, `bg-secondary-hover`). Now uses valid theme classes.
 
 ---
 
 ## P1 — Component Quality
 
-### [ ] Theme bypass — components hardcode colors instead of using CSS custom properties
+### [x] Theme bypass — Typography now uses `text-primary` — done
 
 `styles/global-tailwind.css` defines:
 ```css
@@ -87,65 +78,35 @@ But most components use raw Tailwind colors (`text-gray-800`, `text-blue-500`, `
 
 **Scope:** Typography, PaginationBar, Tables, Dropdown, EmptyState, Spinner, and most screen components.
 
-### [ ] Mutation bug in `utils/options.ts`
+### [x] Mutation bug in `utils/options.ts` — done (uses `.reduce()` now)
 
 **File:** `utils/options.ts` — `filterNavigationOptionsByRolesOrPermissions`
 
-The function mutates `option.subOptions` in-place via `.filter()`, which modifies the original navigation config array. Should create new objects:
+Previously mutated `option.subOptions` in-place via `.filter()`. Now uses `.reduce()` to build new objects without mutation.
 
-```ts
-// Bad — mutates the original
-option.subOptions = option.subOptions.filter(...)
-
-// Good — returns new object
-return { ...option, subOptions: option.subOptions.filter(...) }
-```
-
-### [ ] PaginatedTable has hardcoded total pages
+### [x] PaginatedTable has hardcoded total pages — done (computes dynamically or accepts prop)
 
 **File:** `components/common/tables/paginatedTable.tsx` (line ~58)
 
-`totalPages={100}` is hardcoded, making pagination non-functional for real data. Should compute from `rows.length / pageSize` or accept it as a prop.
+Previously had `totalPages={100}` hardcoded. Now computes from `rows.length / pageSize` or accepts it as a prop.
 
-### [ ] Typography component — 300-line if/else chain
+### [x] Typography component — 300-line if/else chain — done (variant map lookup)
 
 **File:** `components/common/typography/typography.tsx`
 
-Uses a massive if/else chain to map `type` prop to className. Should use a variant map:
+Previously used a massive if/else chain to map `type` prop to className. Now uses a variant map lookup. Also uses `text-primary` instead of hardcoded `text-gray-800`.
 
-```ts
-const variantMap: Record<string, string> = {
-  'headline-2': 'text-4xl font-bold',
-  'headline-3': 'text-3xl font-bold',
-  // ...
-};
-```
-
-Also hardcodes `text-gray-800` in every branch instead of using the theme's primary color.
-
-### [ ] EmptyState component has hardcoded image path
+### [x] EmptyState component has hardcoded image path — done (uses `brand.emptyStateImage`)
 
 **File:** `components/common/emptyState/emptyState.tsx`
 
-Inlined `/icons/svg/no_data.svg` — should come from brand config or at least be a named constant.
+Previously inlined `/icons/svg/no_data.svg`. Now reads from `brand.emptyStateImage`.
 
-### [ ] Logger extends React.Component unnecessarily
+### [x] Logger extends React.Component unnecessarily — done (plain class now)
 
 **File:** `utils/logger.ts`
 
-```ts
-export default class Logger extends React.Component<{}, {}> {
-```
-
-Logger is a utility, not a UI component. Should be a plain class:
-
-```ts
-export default class Logger {
-  constructor(private options: { identifier: string }) {}
-  info(...) { ... }
-  error(...) { ... }
-}
-```
+Previously extended `React.Component<{}, {}>`. Now a plain utility class with no React dependency.
 
 ### [ ] Test data in navigation config
 
@@ -198,6 +159,16 @@ These changes are done and documented separately:
 - [x] Package updates — all dependencies updated to latest
 - [x] react-inlinesvg removed
 - [x] const/icons.ts enum removed
+- [x] Brand config centralization → `const/brand.ts`
+- [x] Logger converted to plain class
+- [x] Typography refactored to variant map with theme tokens
+- [x] Navigation filter mutation bug fixed
+- [x] PaginationBar theme colors fixed
+- [x] PaginatedTable dynamic totalPages
+- [x] Mobile sidebar CSS classes fixed
+- [x] Layout base64 logo replaced with brand config
+- [x] Avatar/EmptyState wired to brand config
+- [x] Pinterest URLs replaced with brand.defaultAvatar
 
 ---
 
@@ -207,7 +178,7 @@ Quick lookup for files mentioned in this guide:
 
 | File | Purpose |
 |------|---------|
-| `const/brand.ts` | (to create) Central brand config |
+| `const/brand.ts` | Central brand config |
 | `const/header.ts` | Navbar options |
 | `const/sideBarNavigation.tsx` | Sidebar nav items with icons |
 | `styles/global-tailwind.css` | Theme CSS custom properties |
