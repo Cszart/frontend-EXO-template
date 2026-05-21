@@ -17,7 +17,8 @@ import { toast } from 'sonner';
 export const headerUserProfileOptions: NavigationOptions[] = [];
 
 // Normal navbar options, normally just text
-// Updated headerNavbarOptions
+// NOTE: These are placeholder entries for development. Replace with
+// client-specific navigation when starting a new project.
 export const headerNavbarOptions: NavigationOptions[] = [
 	{
 		name: 'home',
