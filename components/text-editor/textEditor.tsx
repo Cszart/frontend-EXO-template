@@ -79,7 +79,7 @@ const editorConfig: InitialConfigType = {
 	theme: TextEditorDefaultTheme,
 	// Handling of errors during update
 	onError(error: any) {
-		console.log('<- [TextEditor] error: ', error);
+		console.error('[TextEditor] error: ', error);
 		throw error;
 	},
 	// Any custom nodes go here

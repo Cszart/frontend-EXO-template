@@ -14,6 +14,7 @@ import { InputText } from 'components/form';
 import { useForm } from 'react-hook-form';
 import clsx from 'clsx';
 import { ArrowDownTrayIcon } from '@heroicons/react/20/solid';
+import Logger from 'utils/logger';
 
 const saveHtmlToFile = (htmlContent: string, fileName: string): void => {
 	const blob = new Blob([htmlContent], { type: 'text/html' });
@@ -23,6 +24,7 @@ const saveHtmlToFile = (htmlContent: string, fileName: string): void => {
 const EmailContentEditorScreen = (): JSX.Element => {
 	// Utils
 	const router = useRouter();
+	const logger = new Logger({ identifier: 'ContentEditor' });
 	const { editMode } = router.query;
 	const [isLoading, setIsLoading] = React.useState<boolean>(false);
 	const {
@@ -80,7 +82,9 @@ const EmailContentEditorScreen = (): JSX.Element => {
 	};
 
 	// Function to handle update and save templates
-	const handleSaveTemplate = async (data: any): Promise<void> => {
+	const handleSaveTemplate = async (
+		data: Record<string, string>
+	): Promise<void> => {
 		setIsLoading(true);
 		try {
 			// Update template logic
@@ -111,7 +115,7 @@ const EmailContentEditorScreen = (): JSX.Element => {
 				// Create template logic
 			} else {
 				if (previewContent) {
-					console.log(previewContent);
+					logger.info('Creating template with content', previewContent);
 					// Call backend with new information and template id
 					const createResponse = await emailService.createTemplate({
 						name: data.name, // Template name
@@ -128,7 +132,7 @@ const EmailContentEditorScreen = (): JSX.Element => {
 			hideSaveTemplate();
 			reset();
 		} catch (error) {
-			console.error('Error updating template:', error);
+			logger.error('Error updating template:', error);
 			setIsLoading(false);
 			toast.error('Error updating template. Please try again.');
 		}
