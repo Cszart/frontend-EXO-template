@@ -8,6 +8,7 @@ export interface Option {
 	label: string;
 	href?: string;
 	icon?: ReactNode;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onClick?: ((instance: any) => void) | (() => void);
 	customRender?: ReactNode;
 	placeholder?: boolean;
