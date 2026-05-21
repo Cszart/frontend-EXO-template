@@ -159,7 +159,11 @@ const UsersScreen = (): JSX.Element => {
 					{
 						header: 'Image',
 						content: (instance) => (
-							<img src={instance.image} className="w-10 h-10 rounded-full" />
+							<img
+								src={instance.image}
+								alt="User avatar"
+								className="w-10 h-10 rounded-full"
+							/>
 						),
 					},
 					{
