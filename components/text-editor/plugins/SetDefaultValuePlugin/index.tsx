@@ -13,7 +13,6 @@ export default function SetDefaultValuePlugin(props: {
 			editor.update(() => {
 				// In the browser you can use the native DOMParser API to parse the HTML string.
 				const parser = new DOMParser();
-				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				const dom = parser.parseFromString(props.html!, 'text/html');
 
 				// Once you have the DOM instance it's easy to generate LexicalNodes.
