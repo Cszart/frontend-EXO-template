@@ -1,94 +1,174 @@
-# Project Title
+# EXO Frontend Template
 
-Este proyecto esta enfocado a reducir el esfuerzo por parte de los desarrolladores al iniciar un nuevo proyecto, con el fin de eliminar de ejecutar tareas repetitivas en cada nuevo desarrollo, impactando directamente los tiempos de entrega. Este proyecto se encuentra licenciado bajo los términos de la Licencia Creative Commons Atribución-NoComercial-CompartirIgual 4.0 Internacional (CC BY-NC-SA 4.0).
+A production-ready Next.js template for bootstrapping new client projects. Pre-configured with auth, RBAC, email editor, and common UI components so you can skip the boilerplate and start building features.
 
-## Demos
+**Demo:** https://frontend-exo-template.vercel.app/
 
-https://frontend-exo-template.vercel.app/
+## Stack
 
-## Instalación
+| Layer | Technology |
+|-------|-----------|
+| Framework | Next.js 15 (Pages Router) |
+| UI | React 19, Tailwind CSS v4 |
+| Auth | NextAuth v4 (credentials, Google, Facebook, wallet) |
+| Web3 | wagmi v3, viem v2 |
+| Forms | react-hook-form |
+| Icons | @heroicons/react |
+| Toasts | Sonner |
+| Editor | Lexical |
+| Testing | Cypress |
 
-### Instalación Manual
+## Quick Start
 
-#### a. Clonar el Repositorio
+### Automatic (recommended)
 
-Se debe de comenzar por clonar el repositorio de la plantilla desde GitHub con el siguiente comando:
+```bash
+npx create-exo-frontend-template <project-name>
+cd <project-name>
+```
+
+This clones the template and sets up `.env` for you.
+
+### Manual
 
 ```bash
 git clone https://github.com/Cszart/frontend-EXO-template
+cd frontend-EXO-template
+npm install
+cp .env.example .env   # fill in your values
+npm run dev
 ```
 
-Una vez el repositorio es clonado ya se puede navegar al directorio de la plantilla:
+Open http://localhost:3000.
+
+## Environment Variables
+
+Copy `.env.example` to `.env` and fill in:
+
+| Variable | Purpose |
+|----------|---------|
+| `NEXTAUTH_URL` | Base URL (default: `http://localhost:3000`) |
+| `NEXTAUTH_SECRET` | Secret for JWT signing |
+| `NEXT_PUBLIC_API` | Backend API base URL |
+| `NEXT_PUBLIC_GOOGLE_CLIENT_ID` | Google OAuth client ID |
+| `NEXT_PUBLIC_GOOGLE_CLIENT_SECRET` | Google OAuth secret |
+| `NEXT_PUBLIC_FACEBOOK_CLIENT_ID` | Facebook OAuth app ID |
+| `NEXT_PUBLIC_FACEBOOK_CLIENT_SECRET` | Facebook OAuth secret |
+
+## Branding a New Project
+
+To customize for a new client, edit **one file**:
+
+```ts
+// const/brand.ts
+export const brand = {
+  name: 'ClientName',
+  rightsYear: '2026',
+  logo: '/icons/svg/logo.svg',
+  defaultAvatar: '/icons/svg/avatar.svg',
+  emptyStateImage: '/icons/svg/no_data.svg',
+};
+```
+
+Then:
+
+1. Replace `public/icons/svg/logo.svg` with the client's logo
+2. Replace `public/favicon.ico` with the client's favicon
+3. Update the theme colors in `styles/global-tailwind.css`:
+   ```css
+   @theme {
+     --color-primary: #yourColor;
+     --color-blue: #yourColor;
+     /* etc. */
+   }
+   ```
+
+## Project Structure
+
+```
+components/
+  auth/           requireAuth, AuthGuard, Can (3-layer auth)
+  common/         Typography, Button, Avatar, Spinner, EmptyState, Tabs, Separator
+  common/dropdown Dropdown menu
+  common/tables/  SimpleTable, PaginatedTable
+  form/           InputText, InputEmail, InputPassword, InputList
+  layout/         Layout, Sidebar (desktop + mobile), Header, Footer
+  modals/         Reusable modal components
+  screens/        Page-level components (auth, settings, email)
+  text-editor/    Lexical-based rich text editor
+
+const/            Configuration files
+  brand.ts        Client brand values (name, logo, colors)
+  auth.ts         NextAuth provider enum
+  header.ts       Navbar options
+  sideBarNavigation.tsx  Sidebar nav items
+  routes.ts       Route constants
+  role.ts         Role enum
+  permissions.ts  Permission enum
+
+pages/            Next.js routes
+  auth/           Sign in, sign up, forgot/new password
+  settings/       User, roles, permissions CRUD
+  email/          Content editor, templates
+
+hooks/            Custom React hooks
+interfaces/       TypeScript types
+utils/            Utility functions (logger, options filter, auth helpers)
+api_services/     API service layer
+styles/           Tailwind config and global styles
+public/           Static assets (icons, SVGs, favicon)
+docs/             Documentation
+```
+
+## Pre-built Modules
+
+### Authentication & Authorization
+
+Three-layer auth system:
+
+1. **Server-side** — `requireAuth()` in `getServerSideProps` redirects unauthenticated users
+2. **Page-level** — `<AuthGuard>` wrapper hides entire pages
+3. **Component-level** — `<Can>` wrapper hides individual UI elements by role/permission
+
+Supports credentials, Google, Facebook, and wallet (MetaMask) login.
+
+### User Management
+
+Full CRUD for users, roles, and permissions with role-based access control. Screens at `/settings/user`, `/settings/roles`, `/settings/permissions`.
+
+### Email Template Editor
+
+Lexical-based rich text editor at `/email/contentEditor` for creating and editing HTML email templates. Supports download as HTML file.
+
+## Available Scripts
+
+| Command | Description |
+|---------|------------|
+| `npm run dev` | Start dev server on port 3000 |
+| `npm run build` | Production build |
+| `npm run start` | Start production server |
+| `npm run lint` | Run ESLint |
+| `npm run lint:fix` | Run ESLint with auto-fix |
+
+### Testing
 
 ```bash
-cd Frontend_Template
+npx cypress open
 ```
 
-#### b. Instalación de dependencias
+Select E2E testing and a browser to run the test suite.
 
-Antes de poder probar la plantilla se debe asegurar que Node.js y NPM estén instalados en el sistema. Una vez se verificado se procede a instalar el proyecto:
+## Documentation
 
-```bash
-yarn install
-```
+- [`docs/updates-2026/auth.md`](docs/updates-2026/auth.md) — Auth system architecture
+- [`docs/updates-2026/icons-and-toast.md`](docs/updates-2026/icons-and-toast.md) — Icon and toast patterns
+- [`docs/updates-2026/improvement-guide.md`](docs/updates-2026/improvement-guide.md) — Change log and improvement tracker
 
-#### c. Configuración
-
-Dentro del directorio del proyecto se debe crear un archivo .env donde se deben definir las variables de entorno del proyecto, la plantilla contiene un archivo .env.example que indica cuáles son las variables de entorno que se deben definir inicialmente.
-
-#### d. Inicio del Servidor de Desarrollo:
-
-Para iniciar el servidor de desarrollo se debe ejecutar el siguiente comando:
-
-```bash
-yarn dev
-```
-
-Esto iniciará el proyecto localmente en modalidad de desarrollador en la ruta: localhost:3000 se podrá acceder al proyecto ingresando esa dirección en un navegador web.
-
-### Instalacion automatica
-
-Si prefieres evitar el proceso de clonar el repositorio y configurar manualmente las variables de entorno, puedes utilizar el comando npx para crear y configurar automáticamente un nuevo proyecto basado en la plantilla EXO. Simplemente ejecuta el siguiente comando en tu terminal:
-
-```bash
-npx create-exo-frontend-template <nombre-del-proyecto>
-```
-
-Este comando creará un nuevo directorio con el nombre especificado y configurará automáticamente las variables de entorno necesarias. Luego, podrás iniciar el servidor de desarrollo con el comando yarn dev como se describe en los pasos anteriores.
-
-## Testing
-
-Abrir interfaz de Cypress con
-
-```bash
-  yarn cypress open
-```
-
-Luego E2E testing para probar los flujos, y seleccionar el navegador.
-
-## Módulos preconfigurados
-
-- **Autenticación y Autorización**: Ofrece interfaces gráficas para el registro de usuarios, inicio de sesión, recuperación de contraseñas y autenticación a través de redes sociales y billeteras digitales. Además de las interfaces, proporciona funciones lógicas para gestionar la autorización de usuarios según sus roles o permisos.
-
-- **Gestión de Plantillas de Correos Electrónicos**: Permite a los desarrolladores crear, editar y visualizar estructuras HTML para la construcción de plantillas de correos electrónicos. Ofrece una interfaz gráfica para facilitar el diseño y personalización de las plantillas, junto con funciones lógicas para guardarlas. Es especialmente útil para diseñar correos electrónicos utilizados en diversas situaciones, como confirmación de identidad, recuperación de contraseña y marketing.
-
-- **Sistema de Gestión de Aplicaciones**: Integra los dos módulos anteriores para formar un sistema completo de gestión de aplicaciones. Proporciona funciones lógicas para gestionar la autenticación y autorización de usuarios, así como para manejar la visualización y modificación de las plantillas de correos electrónicos. Además, incluye funciones para administrar los roles de los usuarios y asignarles funcionalidades específicas dentro de la aplicación.
-
-Estos módulos preconfigurados ofrecen una base sólida para el desarrollo de aplicaciones web, simplificando tareas comunes y permitiendo a los desarrolladores concentrarse en crear funciones únicas y de valor añadido.
-
-## Documentacion Adicional
-
-[Documentacion](https://1drv.ms/w/s!As_36iplpjl7mooD4tBF4pPz9zQgLw?e=zXnhRs)
-
-## Autores
+## Authors
 
 - [Cesar Salazar](https://github.com/Cszart)
 - [Valentina Contreras](https://github.com/ValentinaSW)
 
-## Feedback
-
-Si tienen algun _Feedback_ pueden contactarse con cesarasalazarh1@gmail.com
-
 ## License
 
-[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
